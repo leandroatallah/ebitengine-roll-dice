@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -13,42 +14,21 @@ const (
 )
 
 var (
-	dice1      *ebiten.Image
-	dice2      *ebiten.Image
-	dice3      *ebiten.Image
-	dice4      *ebiten.Image
-	dice5      *ebiten.Image
-	dice6      *ebiten.Image
+	dice       []*ebiten.Image
 	poweredBy  *ebiten.Image
 	pressSpace *ebiten.Image
 )
 
 func init() {
+	for i := 1; i <= 6; i++ {
+		d, _, err := ebitenutil.NewImageFromFile(fmt.Sprintf("assets/dice-%d.png", i))
+		if err != nil {
+			log.Fatal(err)
+		}
+		dice = append(dice, d)
+	}
+
 	var err error
-	dice1, _, err = ebitenutil.NewImageFromFile("assets/dice-1.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dice2, _, err = ebitenutil.NewImageFromFile("assets/dice-2.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dice3, _, err = ebitenutil.NewImageFromFile("assets/dice-3.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dice4, _, err = ebitenutil.NewImageFromFile("assets/dice-4.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dice5, _, err = ebitenutil.NewImageFromFile("assets/dice-5.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	dice6, _, err = ebitenutil.NewImageFromFile("assets/dice-6.png")
-	if err != nil {
-		log.Fatal(err)
-	}
 	poweredBy, _, err = ebitenutil.NewImageFromFile("assets/powered-by.png")
 	if err != nil {
 		log.Fatal(err)

@@ -16,8 +16,8 @@ const (
 )
 
 const (
-	frameRate      = 8
-	rollCountLimit = 8
+	frameRate      = 6
+	rollCountLimit = 10
 )
 
 type Game struct {
@@ -80,21 +80,13 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			screen.DrawImage(pressSpace, spaceOp)
 		}
 
-		diceMap := map[int]*ebiten.Image{
-			1: dice1,
-			2: dice2,
-			3: dice3,
-			4: dice4,
-			5: dice5,
-			6: dice6,
-		}
-		dice := diceMap[g.diceValue]
+		d := dice[g.diceValue-1]
 
-		diceWidth := dice.Bounds().Dx()
+		diceWidth := d.Bounds().Dx()
 		diceOp := &ebiten.DrawImageOptions{}
 		diceOp.GeoM.Translate(-float64(diceWidth)/2, 0)
 		diceOp.GeoM.Translate(float64(screenWidth)/2, 148)
-		screen.DrawImage(dice, diceOp)
+		screen.DrawImage(d, diceOp)
 	}
 }
 
